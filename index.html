@@ -1,49 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AutoBooked AI — Book more calls on autopilot</title>
-  <meta name="description" content="Done-for-you AI appointment setting that converts missed calls and messages into booked calendar appointments."/>
+  <meta name="description" content="Done-for-you AI appointment setting that converts missed calls and messages into booked calendar appointments." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#ffffff; --fg:#0f172a; --muted:#64748b; --border:#e2e8f0; --brand:#0ea5e9; --brand2:#38bdf8; }
-    *{box-sizing:border-box} html,body{height:100%} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);}
-    .container{max-width:1120px;margin:0 auto;padding:0 16px}
-    header{border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:10}
-    nav a{color:inherit;text-decoration:none}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
-    .brand-mark{width:34px;height:34px;display:block}
-    .btn{display:inline-block;padding:12px 18px;border-radius:12px;font-weight:600;text-decoration:none}
-    .btn-primary{background:linear-gradient(135deg,var(--brand2),var(--brand));color:#fff}
-    .btn-outline{border:1px solid var(--border);color:inherit;background:#fff}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#f0f9ff;color:#0369a1;font-size:12px;font-weight:600}
+    :root{
+      --bg:#ffffff;
+      --fg:#0b1220;
+      --muted:#667085;
+      --border:#e5e7eb;
+      --primary:#0ea5e9;
+      --primary-2:#38bdf8;
+      --ring: rgba(14,165,233,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--fg); background:var(--bg);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .container{max-width:1120px; margin:0 auto; padding:0 16px}
+    header{position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid var(--border)}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; font-weight:800; letter-spacing:.2px}
+    .brand img, .brand svg{width:34px; height:34px; display:block}
+    nav a{color:inherit; text-decoration:none}
+    .btn{display:inline-block; padding:12px 18px; border-radius:12px; font-weight:600; text-decoration:none}
+    .btn-primary{background:linear-gradient(135deg,var(--primary-2),var(--primary)); color:#fff; box-shadow:0 6px 18px var(--ring)}
+    .btn-outline{border:1px solid var(--border); color:inherit; background:#fff}
+    .badge{display:inline-flex; align-items:center; gap:8px; font-weight:600; padding:6px 10px; border-radius:999px; font-size:12px; background:#f0f9ff; color:#0369a1; border:1px solid #e0f2fe}
     .section{padding:64px 0}
-    .card{border:1px solid var(--border);border-radius:18px;padding:24px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-    .grid{display:grid;gap:24px}
-    .grid-2{grid-template-columns:1fr} .grid-3{grid-template-columns:1fr} .grid-4{grid-template-columns:1fr}
-    @media(min-width:900px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} .grid-4{grid-template-columns:repeat(4,1fr)} }
-    h1{font-size:40px;line-height:1.1;margin:0} h2{font-size:28px;margin:0} p{color:var(--muted)}
-    footer{border-top:1px solid var(--border);margin-top:64px} footer a{color:inherit;text-decoration:none} .muted{color:var(--muted);font-size:12px}
-    .price{font-size:32px;font-weight:800;margin-top:6px}
+    .card{border:1px solid var(--border); border-radius:18px; padding:24px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+    .grid{display:grid; gap:24px}
+    .grid-2{grid-template-columns:1fr}
+    .grid-3{grid-template-columns:1fr}
+    .grid-4{grid-template-columns:1fr}
+    @media(min-width:900px){
+      .grid-2{grid-template-columns:1fr 1fr}
+      .grid-3{grid-template-columns:repeat(3,1fr)}
+      .grid-4{grid-template-columns:repeat(4,1fr)}
+    }
+    h1{font-size:40px; line-height:1.1; margin:0}
+    h2{font-size:28px; margin:0}
+    p{color:var(--muted)}
+    footer{border-top:1px solid var(--border); margin-top:64px; background:#fff}
+    .footer-wrap{display:flex; flex-direction:column; gap:16px; padding:24px 0}
+    .footer-grid{display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start}
+    footer a{color:inherit; text-decoration:none}
+    .muted{color:var(--muted); font-size:12px}
     /* Modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
-    .modal{max-width:860px;width:100%;background:#fff;border-radius:18px;padding:24px;max-height:80vh;overflow:auto;border:1px solid var(--border)}
-    .modal h1{font-size:28px} .modal .close{float:right;border:none;background:transparent;font-size:20px;cursor:pointer}
-    .link{color:#0284c7;text-decoration:none}
+    .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; align-items:center; justify-content:center; padding:16px; z-index:50}
+    .modal{max-width:860px; width:100%; background:#fff; border-radius:18px; padding:24px; max-height:80vh; overflow:auto; border:1px solid var(--border)}
+    .modal h1{font-size:28px}
+    .modal .close{float:right; border:none; background:transparent; font-size:20px; cursor:pointer}
+    .link{color:var(--primary); text-decoration:none}
+    .pill{display:inline-block; font-size:12px; padding:4px 10px; border-radius:999px; border:1px solid var(--border); color:#0369a1; background:#f0f9ff}
+    .price{font-size:32px; font-weight:800; margin-top:6px}
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; padding:16px 0;">
       <a href="#" class="brand" aria-label="AutoBooked AI home">
-        <img class="brand-mark" src="assets/logo-ak.svg" alt="AutoBooked AI logo"/>
+        <!-- Inline logo ensures no broken asset paths; also linked file exists in /assets -->
+        <img src="assets/logo-ak.svg" alt="AutoBooked AI logo" width="34" height="34"/>
         <span>AutoBooked AI</span>
       </a>
-      <nav style="display:flex;gap:20px;font-size:14px">
+      <nav style="display:flex; gap:20px; font-size:14px">
         <a href="#features">Features</a>
         <a href="#how">How it works</a>
         <a href="#pricing">Pricing</a>
@@ -56,25 +86,25 @@
   <section class="section">
     <div class="container grid grid-2" style="align-items:center">
       <div>
-        <div class="badge" aria-label="15-day free trial"><span>✅</span><span>15‑day free trial</span></div>
-        <h1 style="margin-top:12px">Turn missed calls & messages <span style="background:linear-gradient(135deg,var(--brand2),var(--brand));-webkit-background-clip:text;background-clip:text;color:transparent">into booked appointments</span></h1>
-        <p style="margin-top:12px;font-size:18px">We install and run an AI appointment setter that replies within seconds via WhatsApp, SMS, and web chat — qualifying leads and auto‑booking into your calendar 24/7.</p>
-        <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-          <a class="btn btn-primary" href="https://calendly.com/autobookedai/intro-call">Start free trial →</a>
+        <span class="badge">15‑day free trial</span>
+        <h1 style="margin-top:12px">Turn missed calls & messages <span style="color:var(--primary)">into booked appointments</span></h1>
+        <p style="margin-top:12px; font-size:18px">We install and run an AI appointment setter that replies within seconds via WhatsApp, SMS, and web chat — qualifying leads and auto‑booking into your calendar 24/7.</p>
+        <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn btn-primary" href="https://calendly.com/autobookedai/intro-call">Start free trial</a>
           <a class="btn btn-outline" href="#how">See how it works</a>
         </div>
-        <div class="muted" style="margin-top:8px">No card required for trial. *Your Calendly will show “AutoBooked AI” as the meeting host.</div>
+        <div class="muted" style="margin-top:8px">*Your Calendly will show “AutoBooked AI” as the meeting host.</div>
       </div>
       <div class="card">
-        <div class="muted" style="font-weight:600;color:#334155">Live preview</div>
-        <div class="card" style="border-style:dashed;margin-top:10px">
+        <div class="muted" style="font-weight:600; color:#374151">Live preview</div>
+        <div class="card" style="border-style:dashed; margin-top:10px">
           <div class="muted">WhatsApp • New message</div>
-          <div style="margin-top:8px;display:grid;gap:8px;font-size:14px">
-            <div class="card" style="background:#f1f5f9">Hi! I missed your call — can we help you today?</div>
-            <div class="card" style="background:#ecfeff;margin-left:auto;width:max-content">Yes, need a quote for boiler service.</div>
-            <div class="card" style="background:#f1f5f9">Great — what’s your postcode and availability?</div>
-            <div class="card" style="background:#ecfeff;margin-left:auto;width:max-content">NG16 3AA, tomorrow afternoon.</div>
-            <div class="card" style="background:#f1f5f9">Perfect. Booking you for 2:30pm tomorrow. You’ll get a confirmation now ✅</div>
+          <div style="margin-top:8px; display:grid; gap:8px; font-size:14px">
+            <div class="card" style="background:#f3f4f6">Hi! I missed your call — can we help you today?</div>
+            <div class="card" style="background:#ecfeff; margin-left:auto; width:max-content">Yes, need a quote for boiler service.</div>
+            <div class="card" style="background:#f3f4f6">Great — what’s your postcode and availability?</div>
+            <div class="card" style="background:#ecfeff; margin-left:auto; width:max-content">NG16 3AA, tomorrow afternoon.</div>
+            <div class="card" style="background:#f3f4f6">Perfect. Booking you for 2:30pm tomorrow. You’ll get a confirmation now ✅</div>
           </div>
         </div>
       </div>
@@ -97,14 +127,14 @@
   </section>
 
   <!-- How it works -->
-  <section id="how" class="section" style="background:#f8fafc">
+  <section id="how" class="section" style="background:#fafafa">
     <div class="container">
       <h2>How it works</h2>
       <div class="grid grid-4" style="margin-top:20px">
-        <div class="card"><div class="badge">1</div><div style="font-weight:600;margin-top:6px">Discovery call</div><p>We learn your offers, pricing, and booking rules.</p></div>
-        <div class="card"><div class="badge">2</div><div style="font-weight:600;margin-top:6px">Setup & training</div><p>We connect your calendar, WhatsApp/SMS, and website chat.</p></div>
-        <div class="card"><div class="badge">3</div><div style="font-weight:600;margin-top:6px">Go live</div><p>Missed calls & inbound messages turn into booked slots automatically.</p></div>
-        <div class="card"><div class="badge">4</div><div style="font-weight:600;margin-top:6px">Optimize</div><p>We review transcripts and improve conversion weekly.</p></div>
+        <div class="card"><div class="pill">1</div><div style="font-weight:600; margin-top:6px">Discovery call</div><p>We learn your offers, pricing, and booking rules.</p></div>
+        <div class="card"><div class="pill">2</div><div style="font-weight:600; margin-top:6px">Setup & training</div><p>We connect your calendar, WhatsApp/SMS, and website chat.</p></div>
+        <div class="card"><div class="pill">3</div><div style="font-weight:600; margin-top:6px">Go live</div><p>Missed calls & inbound messages turn into booked slots automatically.</p></div>
+        <div class="card"><div class="pill">4</div><div style="font-weight:600; margin-top:6px">Optimize</div><p>We review transcripts and improve conversion weekly.</p></div>
       </div>
     </div>
   </section>
@@ -115,19 +145,24 @@
       <h2>Simple pricing</h2>
       <div class="grid grid-3" style="margin-top:20px">
         <div class="card">
-          <div class="muted" style="font-weight:600">Starter</div>
-          <div class="price">£497<span style="font-size:14px;font-weight:600">/mo</span></div>
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div class="muted" style="font-weight:600">Starter</div>
+            <span class="badge">15‑day free trial</span>
+          </div>
+          <div class="price">£497<span style="font-size:14px; font-weight:600">/mo</span></div>
           <ul>
             <li><strong>40</strong> conversations</li>
             <li>WhatsApp + Web chat</li>
             <li>Calendar connection</li>
             <li>Email support</li>
           </ul>
-          <div class="badge" style="margin-top:8px">15‑day free trial</div>
         </div>
-        <div class="card" style="border:2px solid var(--brand)">
-          <div style="color:#0369a1;font-weight:600">Most popular</div>
-          <div class="price">£1,200<span style="font-size:14px;font-weight:600">/mo</span></div>
+        <div class="card" style="border:2px solid var(--primary)">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="color:#0369a1; font-weight:600">Most popular</div>
+            <span class="badge">15‑day free trial</span>
+          </div>
+          <div class="price">£1,200<span style="font-size:14px; font-weight:600">/mo</span></div>
           <ul>
             <li><strong>200</strong> conversations</li>
             <li>WhatsApp + SMS + Web chat</li>
@@ -135,7 +170,6 @@
             <li>Weekly optimization</li>
             <li>Priority support</li>
           </ul>
-          <div class="badge" style="margin-top:8px">15‑day free trial</div>
         </div>
         <div class="card">
           <div class="muted" style="font-weight:600">Scale</div>
@@ -156,8 +190,9 @@
   <section class="section">
     <div class="container">
       <div class="card" style="text-align:center">
-        <h3 style="font-size:24px;margin:0">Ready to book more calls on autopilot?</h3>
-        <p>Kick the tyres with a 15‑day free trial — no card needed.</p>
+        <span class="badge" style="margin-bottom:8px">15‑day free trial</span>
+        <h3 style="font-size:24px; margin:0">Ready to book more calls on autopilot?</h3>
+        <p>Click below and we’ll show you a live demo and rollout plan.</p>
         <a class="btn btn-primary" href="https://calendly.com/autobookedai/intro-call">Start free trial</a>
       </div>
     </div>
@@ -165,12 +200,12 @@
 
   <!-- Footer -->
   <footer>
-    <div class="container" style="display:grid;grid-template-columns:1fr;gap:16px;padding:24px 0">
-      <div style="display:flex;align-items:center;gap:10px;font-weight:700">
-        <img class="brand-mark" src="assets/logo-ak.svg" alt="AutoBooked AI logo small"/>
+    <div class="container footer-wrap">
+      <div style="font-weight:700; display:flex; align-items:center; gap:10px">
+        <img src="assets/logo-ak.svg" alt="" width="22" height="22"/>
         AutoBooked AI
       </div>
-      <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <div class="footer-grid">
         <a href="#" data-open="terms">Terms & Conditions</a>
         <a href="#" data-open="privacy">Privacy Policy</a>
         <a class="link" href="mailto:hello@autobookedai.co.uk">hello@autobookedai.co.uk</a>
@@ -253,16 +288,49 @@
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Modals
+
+    // Modal controls
     const openers = document.querySelectorAll('[data-open]');
     const closers = document.querySelectorAll('[data-close]');
     const swapLinks = document.querySelectorAll('[data-swap]');
-    function openModal(name){const el=document.getElementById('modal-'+name); if(!el)return; el.style.display='flex'; el.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';}
-    function closeModal(name){const el=document.getElementById('modal-'+name); if(!el)return; el.style.display='none'; el.setAttribute('aria-hidden','true'); document.body.style.overflow='';}
-    openers.forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); openModal(a.getAttribute('data-open'));}));
-    closers.forEach(b=>b.addEventListener('click',e=>{e.preventDefault(); closeModal(b.getAttribute('data-close'));}));
-    document.querySelectorAll('.modal-backdrop').forEach(bg=>{bg.addEventListener('click',e=>{if(e.target===bg){bg.style.display='none'; document.body.style.overflow='';}});});
-    swapLinks.forEach(l=>l.addEventListener('click',e=>{e.preventDefault(); const t=l.getAttribute('data-swap'); document.querySelectorAll('.modal-backdrop').forEach(bg=>bg.style.display='none'); openModal(t);}));
+
+    function openModal(name){
+      const el = document.getElementById('modal-' + name);
+      if(!el) return;
+      el.style.display = 'flex';
+      el.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(name){
+      const el = document.getElementById('modal-' + name);
+      if(!el) return;
+      el.style.display = 'none';
+      el.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openers.forEach(a => a.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(a.getAttribute('data-open'));
+    }));
+    closers.forEach(b => b.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeModal(b.getAttribute('data-close'));
+    }));
+    document.querySelectorAll('.modal-backdrop').forEach(bg => {
+      bg.addEventListener('click', (e) => {
+        if(e.target === bg){
+          bg.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    swapLinks.forEach(l => l.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = l.getAttribute('data-swap');
+      document.querySelectorAll('.modal-backdrop').forEach(bg => bg.style.display = 'none');
+      openModal(target);
+    }));
   </script>
 </body>
 </html>
